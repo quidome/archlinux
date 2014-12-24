@@ -33,7 +33,7 @@ swap 4GB, root 8GB and the rest for home
 ```
 lvcreate -L 4G arch -n swap
 lvcreate -L 4G arch -n root
-lvcreate -l +100%FREE arch -n swap
+lvcreate -l +100%FREE arch -n home
 ```
 
 Create file systems
@@ -59,4 +59,15 @@ mkdir /mnt/{boot,home}
 mount /dev/sda1 /mnt/boot
 mount /dev/mapper/arch-home /mnt/home
 ```
+
+Use standard installation up until mkinitcpio
+
+Add lvm to /etc/mkinitcpio.conf
+---------------------
+/etc/mkinitcpio.conf
+HOOKS="base udev ... block *lvm2* filesystems"
+
+Use syslinux bootloader and gptfdisk 
+
+pacman -S syslinux gptfdisk
 
